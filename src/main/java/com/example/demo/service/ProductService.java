@@ -15,15 +15,16 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    public Product creatProduct(ProductCreationRequest request){
-        Product product = new Product();
+    public boolean creatProduct(Product product){
 
-        product.setName(request.getName());
-        product.setBrandName(request.getBrandName());
-        product.setQuantity(request.getQuantity());
-        product.setDetail(request.getDetail());
+        try {
+            this.productRepository.save(product);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        return productRepository.save(product);
+        return false;
     }
     public Product updateUser(String productId, ProductUpdateRequest request) {
         Product product = getProduct(productId);

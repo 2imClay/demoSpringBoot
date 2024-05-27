@@ -17,9 +17,9 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping
-    Product creatProduct(@RequestBody ProductCreationRequest request) {
-        return productService.creatProduct(request);
-    }
+//    Product creatProduct(@RequestBody ProductCreationRequest request) {
+//        return productService.creatProduct(request);
+//    }
 
     @GetMapping
     List<Product> getAllProduct(){

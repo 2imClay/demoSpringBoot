@@ -1,14 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.request.ProductCreationRequest;
 import com.example.demo.entity.Product;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +29,27 @@ public class AdminController {
 
         return "admin/page-list-product";
     }
+
+    @GetMapping ("/add-product")
+    public String creatProduct(Model model) {
+        Product product = new Product();
+        model.addAttribute("product", product);
+
+        return "admin/page-add-product";
+    }
+    @PostMapping("/add-product")
+    public String save(@ModelAttribute("product") Product product){
+
+        if (this.productService.creatProduct(product)) {
+            return "redirect:/admin/product";
+        } else {
+            return "redirect:/admin/add-product";
+        }
+
+
+    }
+
+
     @GetMapping("/delete-product/{productId}")
     String deleteProduct(@PathVariable("productId") String productId) {
         if (this.productService.deleteProduct(productId)) {
